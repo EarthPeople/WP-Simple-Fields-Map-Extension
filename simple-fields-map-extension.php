@@ -3,13 +3,13 @@
 Plugin Name: Simple Fields Map extension
 Plugin URI: http://earthpeople.se/
 Description: Adds a Google Maps-field to Simple Fields
-Version: 1.2.2
+Version: 1.3
 Author: Earth People
 Author URI: http://earthpeople.se/
 License: GPL2
 */
 
-//* Add example post type and simple fields to test plugin. 
+/* Add example post type and simple fields to test plugin. 
 // In case I forget to comment it out, it will only be called when using on my test domain (hopefully pretty unique name :)
 if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] ) {
 
@@ -86,7 +86,7 @@ function simple_fields_field_googlemaps_register() {
 		public 
 			$key = "googlemaps", 
 			$name = "Google Maps location",
-			$version = "1.2.1";
+			$version = "1.3";
 		
 		function __construct() {
 			parent::__construct();
@@ -208,15 +208,15 @@ function simple_fields_field_googlemaps_register() {
 			$formatted_address 	= isset($saved_values["formatted_address"]) ? $saved_values["formatted_address"] : "";
 			$address_components	= isset($saved_values["address_components"]) ? $saved_values["address_components"] : "";
 			$name				= isset($saved_values["name"]) ? $saved_values["name"] : "";
-			$saved_preferred_zoom	= isset($saved_values["preferred_zoom"]) ? $saved_values["preferred_zoom"] : "";
-			
+			$saved_preferred_zoom	= ( isset( $saved_values["preferred_zoom"] ) && is_numeric($saved_values["preferred_zoom"]) ) ? (int) $saved_values["preferred_zoom"] : "";
+
 			$str_zoom_options = sprintf( '<select name="%1$s">', $this->get_options_name("preferred_zoom") );
 			$str_zoom_options .= sprintf('<option value="%1$s">%2$s</option>', "", __("None preferred selected", "simple-fields-field-googlemaps"));
 			$ranges = range(0,21);
 			$ranges[0] = __("0 - whole earth visible", "simple-fields-field-googlemaps");
 			$ranges[21] = __("21 - very close", "simple-fields-field-googlemaps");
 			foreach ( $ranges as $one_zoom_range_key => $one_zoom_range_value ) {
-				$str_zoom_options .= sprintf( '<option value="%1$s" %3$s>%2$s</option>', $one_zoom_range_key, $one_zoom_range_value, ($one_zoom_range_key == $saved_preferred_zoom) ? " selected " : "" );
+				$str_zoom_options .= sprintf( '<option value="%1$s" %3$s>%2$s</option>', $one_zoom_range_key, $one_zoom_range_value, ($one_zoom_range_key === $saved_preferred_zoom) ? " selected " : "" );
 			}
 			$str_zoom_options .= "</select>";
 			
@@ -337,6 +337,7 @@ function simple_fields_field_googlemaps_register() {
 			// https://developers.google.com/maps/documentation/staticmaps/
 			$static_map_base = "http://maps.googleapis.com/maps/api/staticmap?sensor=false";
 			foreach ($values as $key => $val) {
+				
 				$arr_static_maps = array();
 				foreach($arr_sizes as $size_key => $size_vals) {
 	

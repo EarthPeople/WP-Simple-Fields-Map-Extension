@@ -2,9 +2,9 @@
 Contributors: eskapism, Earth People
 Donate link: http://earthpeople.se/
 Tags: simple fields, google maps, geolocation, latitude, longitude, lat, lng, location, extension, geocoding
-Requires at least: 3.4
-Tested up to: 3.4.2
-Stable tag: 1.2.2
+Requires at least: 3.5
+Tested up to: 3.5
+Stable tag: 1.3
 License: GPLv2
 
 Extension to Simple Fields that adds a field type for selecting a location on a Google Map.
@@ -83,9 +83,9 @@ This plugin is available in the following languages:
 
 == Changelog ==
 
-= xxx =
-- Show notice in admin if user does not have Simple Fields installed
+= 1.3 =
 - Add dropdown to select preferred zoom level for each map
+- Show notice in admin if user does not have Simple Fields installed
 
 = 1.2.2 =
 - Fixed notice error if no additional image sizes where used in the theme currently in use
