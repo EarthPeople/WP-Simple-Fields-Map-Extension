@@ -85,7 +85,7 @@ This plugin is available in the following languages:
 
 = xxx =
 - Show notice in admin if user does not have Simple Fields installed
-- 
+- Add dropdown to select preferred zoom level for each map
 
 = 1.2.2 =
 - Fixed notice error if no additional image sizes where used in the theme currently in use
