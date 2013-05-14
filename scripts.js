@@ -8,8 +8,9 @@ var simple_fields_googlemap = (function($) {
 		;
 
 	return {
-		
+
 		init: function(){
+			
 			this.load_map_script();
 
 			// Listen for added field groups

@@ -9,6 +9,52 @@ Author URI: http://earthpeople.se/
 License: GPL2
 */
 
+//* Add example post type and simple fields to test plugin. 
+// In case I forget to comment it out, it will only be called when using on my test domain (hopefully pretty unique name :)
+if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] ) {
+
+	// Full example to add post type with maps and stuff
+	add_action("init", function() {
+
+		register_post_type( "sf_map_test", array(
+			"label" => "SF Map Extension Test",
+			"public" => true
+		));
+
+		simple_fields_register_field_group('sf_map_test_field_fg',
+			array (
+				'name' => 'Map test',
+				'repeatable' => 1,
+				'fields' => array(
+					array(
+						"slug" => "sf_map",
+						"name" => "Test map",
+						"type" => "googlemaps",
+						"options" => array(
+							"defaultZoomLevel" => 10,
+							"defaultMapTypeId" => "HYBRID"
+
+						)
+					)
+				)
+			)
+		);
+
+		simple_fields_register_post_connector('sf_map_test', array(
+			"name" => "Map extension post connector",
+			"field_groups" => array(
+				array("slug" => "sf_map_test_field_fg")
+			),
+			"post_types" => "sf_map_test"
+		));
+
+		simple_fields_register_post_type_default('sf_map_test', 'sf_map_test');
+
+	});
+}
+//*
+
+
 // Check if Simple Fields is installed and notify user if not
 function simple_fields_field_googlemaps_check_simple_fields_installed() {
 
@@ -29,7 +75,7 @@ add_action("admin_notices", "simple_fields_field_googlemaps_check_simple_fields_
  * Function that is called from simple fields
  */ 
 function simple_fields_field_googlemaps_register() {
-	
+
 	/**
 	 * Main class for the google maps extension
 	 */
