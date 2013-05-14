@@ -34,6 +34,32 @@ Happy geocoding!
 	* Latitude and Longitude
 	* Address information, including store/shop name if that was what the user searched for when adding this location
 
+#### To add a map to a field group programmatically
+
+Slug for this field extension is "googlemaps".
+
+Full example using register field group:
+
+`
+		simple_fields_register_field_group('sf_map_test_field_fg',
+			array (
+				'name' => 'My map',
+				'repeatable' => 1,
+				'fields' => array(
+					array(
+						"type" => "googlemaps",
+						"slug" => "sf_map",
+						"name" => "Test map",
+						"options" => array(
+							"defaultZoomLevel" => 10,
+							"defaultMapTypeId" => "HYBRID"
+						)
+					)
+				)
+			)
+		);
+`
+
 #### Translations/Languages
 
 This plugin is available in the following languages:
@@ -53,6 +79,10 @@ This plugin is available in the following languages:
 3. Example of the values that are being stored for each saved location/field (and the function used to get them)
 
 == Changelog ==
+
+= xxx =
+- Show notice in admin if user does not have Simple Fields installed
+- 
 
 = 1.2.2 =
 - Fixed notice error if no additional image sizes where used in the theme currently in use
