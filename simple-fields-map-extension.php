@@ -9,9 +9,30 @@ Author URI: http://earthpeople.se/
 License: GPL2
 */
 
-add_action("simple_fields_register_field_types", "simple_fields_field_googlemaps_register"); 
+// Check if Simple Fields is installed and notify user if not
+function simple_fields_field_googlemaps_check_simple_fields_installed() {
 
+	$plugin_is_active = is_plugin_active("Simple-Fields-GIT/simple_fields.php") || is_plugin_active("Simple-Fields/simple_fields.php");
+	if ( ! $plugin_is_active ) {
+		?>
+		<div class="error">
+			<p><?php _e('To use the plugin <em>Simple Fields Map Extension</em> you must also have <a target="_blank" href="http://wordpress.org/extend/plugins/simple-fields/">Simple Fields</a> installed.', 'simple-fields-field-googlemaps'); ?></p>
+		</div>
+		<?php
+	}
+
+}
+add_action("admin_notices", "simple_fields_field_googlemaps_check_simple_fields_installed");
+
+
+/**
+ * Function that is called from simple fields
+ */ 
 function simple_fields_field_googlemaps_register() {
+	
+	/**
+	 * Main class for the google maps extension
+	 */
 	class simple_fields_field_googlemaps extends simple_fields_field {
 	
 		public 
@@ -287,4 +308,7 @@ function simple_fields_field_googlemaps_register() {
 
 	simple_fields::register_field_type("simple_fields_field_googlemaps");
 }
+
+// Tell Simple Fields to register this plugin
+add_action("simple_fields_register_field_types", "simple_fields_field_googlemaps_register");
 
