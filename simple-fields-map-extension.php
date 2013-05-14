@@ -32,8 +32,10 @@ if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] ) {
 						"type" => "googlemaps",
 						"options" => array(
 							"defaultZoomLevel" => 10,
-							"defaultMapTypeId" => "HYBRID"
-
+							"defaultMapTypeId" => "HYBRID", // ROADMAP | SATELLITE | HYBRID | TERRAIN
+							"defaultLocationLat" => 40.71435,
+							"defaultLocationLng" => -74.00597,
+							"defaultZoomLevel" => 10
 						)
 					)
 				)
@@ -227,7 +229,8 @@ function simple_fields_field_googlemaps_register() {
 						Position: 
 						<a class="simple-fields-fieldtype-googlemap-marker-remove" href="#">%16$s</a>
 						<span class="simple-fields-fieldtype-googlemap-selected-positions-inner">
-							latitude <span class="simple-fields-field-googlemap-selected-lat">%5$s</span>,
+							latitude <span class="simple-fields-field-googlemap-selected-lat">%5$s</span>
+							<br>
 							longitude <span class="simple-fields-field-googlemap-selected-lng">%6$s</span>
 							<span class="simple-fields-field-googlemap-selected-name">%15$s</span>
 							<span class="simple-fields-field-googlemap-selected-formatted_address">%11$s</span>
@@ -246,7 +249,7 @@ function simple_fields_field_googlemaps_register() {
 				round($lng_saved, 5),
 				$options["defaultMapTypeId"],
 				$options["defaultZoomLevel"],
-				__("Search company/address or lat/lng coordinates", "simple-fields-field-googlemaps"), // 9
+				__("Search company/address or lat,lng", "simple-fields-field-googlemaps"), // 9
 				$this->get_options_name("formatted_address"), // 10
 				esc_attr($formatted_address),
 				$this->get_options_name("address_components"), // 12

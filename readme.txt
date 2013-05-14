@@ -42,7 +42,7 @@ Full example using register field group:
 
 `
 		simple_fields_register_field_group('sf_map_test_field_fg',
-			array (
+			array(
 				'name' => 'My map',
 				'repeatable' => 1,
 				'fields' => array(
@@ -52,7 +52,10 @@ Full example using register field group:
 						"name" => "Test map",
 						"options" => array(
 							"defaultZoomLevel" => 10,
-							"defaultMapTypeId" => "HYBRID"
+							"defaultMapTypeId" => "HYBRID", // ROADMAP | SATELLITE | HYBRID | TERRAIN
+							"defaultLocationLat" => 40.71435,
+							"defaultLocationLng" => -74.00597,
+							"defaultZoomLevel" => 10
 						)
 					)
 				)
