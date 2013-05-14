@@ -235,9 +235,7 @@ var simple_fields_googlemap_map = (function($) {
 						// 48.858278 2.294254
 						// so perhaps minus then number.dot.number pehaps comma then perhaps number then number.dot.number
 						var entered_address = address_input.get(0).value;
-						console.log(entered_address, "entered_address");
 						var matches = entered_address.match(/(-?\d+\.\d+), ?(-?\d+\.\d+)/);
-						console.log(matches, "matches");
 						if (matches && matches.length === 3) {
 							
 							// Woha! Looks like a lat/lng position
@@ -297,6 +295,12 @@ var simple_fields_googlemap_map = (function($) {
 
 				});
 
+			}); // idle
+
+			// change zoom level on map when select with preferred zoom level is changed
+			metaboxDiv.on("change", ".simple-fields-fieldtype-googlemap-preferred-zoom select", function(e) {
+				var zoom = parseInt(this.value, 10);
+				if ( ! isNaN(zoom) ) map.setZoom( zoom );
 			});
 
 		} // add_listeners

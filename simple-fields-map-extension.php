@@ -208,7 +208,20 @@ function simple_fields_field_googlemaps_register() {
 			$formatted_address 	= isset($saved_values["formatted_address"]) ? $saved_values["formatted_address"] : "";
 			$address_components	= isset($saved_values["address_components"]) ? $saved_values["address_components"] : "";
 			$name				= isset($saved_values["name"]) ? $saved_values["name"] : "";
+			$saved_preferred_zoom	= isset($saved_values["preferred_zoom"]) ? $saved_values["preferred_zoom"] : "";
 			
+			$str_zoom_options = sprintf( '<select name="%1$s">', $this->get_options_name("preferred_zoom") );
+			$str_zoom_options .= sprintf('<option value="%1$s">%2$s</option>', "", __("None preferred selected", "simple-fields-field-googlemaps"));
+			$ranges = range(0,21);
+			$ranges[0] = __("0 - whole earth visible", "simple-fields-field-googlemaps");
+			$ranges[21] = __("21 - very close", "simple-fields-field-googlemaps");
+			foreach ( $ranges as $one_zoom_range_key => $one_zoom_range_value ) {
+				$str_zoom_options .= sprintf( '<option value="%1$s" %3$s>%2$s</option>', $one_zoom_range_key, $one_zoom_range_value, ($one_zoom_range_key == $saved_preferred_zoom) ? " selected " : "" );
+			}
+			$str_zoom_options .= "</select>";
+			
+			$str_zoom = $str_zoom_options;
+
 			$output .= sprintf(
 				'
 					<div 
@@ -226,7 +239,16 @@ function simple_fields_field_googlemaps_register() {
 					<input type=hidden name=%10$s value="%11$s" class="simple-fields-field-googlemap-formatted_address" />
 					<input type=hidden name=%12$s value="%13$s" class="simple-fields-field-googlemap-address_components" />
 					<p class="simple-fields-fieldtype-googlemap-selected-positions">
-						Position: 
+						
+						<span class="simple-fields-fieldtype-googlemap-preferred-zoom">
+							<strong>%21$s:</strong>
+							<br>
+							%20$s
+						</span>
+						
+						<br>
+
+						<strong>Position</strong>: 
 						<a class="simple-fields-fieldtype-googlemap-marker-remove" href="#">%16$s</a>
 						<span class="simple-fields-fieldtype-googlemap-selected-positions-inner">
 							latitude <span class="simple-fields-field-googlemap-selected-lat">%5$s</span>
@@ -235,6 +257,7 @@ function simple_fields_field_googlemaps_register() {
 							<span class="simple-fields-field-googlemap-selected-name">%15$s</span>
 							<span class="simple-fields-field-googlemap-selected-formatted_address">%11$s</span>
 						</span>
+
 					</p>
 					<p><a class="simple-fields-fieldtype-googlemap-marker-add" href="#">%17$s</a></p>
 					<p class="simple-fields-fieldtype-googlemap-address-search">
@@ -248,7 +271,7 @@ function simple_fields_field_googlemaps_register() {
 				round($lat_saved, 5),
 				round($lng_saved, 5),
 				$options["defaultMapTypeId"],
-				$options["defaultZoomLevel"],
+				empty($saved_preferred_zoom) ? $options["defaultZoomLevel"] : $saved_preferred_zoom, // use preferred over default
 				__("Search company/address or lat,lng", "simple-fields-field-googlemaps"), // 9
 				$this->get_options_name("formatted_address"), // 10
 				esc_attr($formatted_address),
@@ -259,7 +282,9 @@ function simple_fields_field_googlemaps_register() {
 				__("(remove)", "simple-fields-field-googlemaps"), // 16
 				__("Add marker/location", "simple-fields-field-googlemaps"), // 17
 				$lat_init_pos, // 18
-				$lng_init_pos  // 19
+				$lng_init_pos,  // 19
+				$str_zoom, // 20
+				__("Preferred zoom", "simple-fields-field-googlemaps") // 21
 			);
 			
 			return $output;
