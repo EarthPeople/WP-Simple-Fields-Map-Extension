@@ -4,7 +4,7 @@ Donate link: http://earthpeople.se/
 Tags: simple fields, google maps, geolocation, latitude, longitude, lat, lng, location, extension, geocoding
 Requires at least: 3.5
 Tested up to: 3.5
-Stable tag: 1.3
+Stable tag: 1.3.1
 License: GPLv2
 
 Extension to Simple Fields that adds a field type for selecting a location on a Google Map.
@@ -29,10 +29,11 @@ Happy geocoding!
 	* default location
 * Search location of address by using built in search box
 * Search location by enter its latitude and longitude coordinates
-* Supports Repeatable Fields
+* Supports Repeatable Fields - have any amount of maps connected to each post
 * From each saved position you can get
 	* Latitude and Longitude
 	* Address information, including store/shop name if that was what the user searched for when adding this location
+	* Preferred zoom level
 
 #### To add a map to a field group programmatically
 
@@ -82,6 +83,9 @@ This plugin is available in the following languages:
 3. Example of the values that are being stored for each saved location/field (and the function used to get them)
 
 == Changelog ==
+
+= 1.3.1 =
+- Static maps did not care about any preferred zoom level that was set in GUI. Now they do, funky funky!
 
 = 1.3 =
 - Add dropdown to select preferred zoom level for each map

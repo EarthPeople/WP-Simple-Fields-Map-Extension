@@ -3,7 +3,7 @@
 Plugin Name: Simple Fields Map extension
 Plugin URI: http://earthpeople.se/
 Description: Adds a Google Maps-field to Simple Fields
-Version: 1.3
+Version: 1.3.1
 Author: Earth People
 Author URI: http://earthpeople.se/
 License: GPL2
@@ -92,7 +92,7 @@ function simple_fields_field_googlemaps_register() {
 		public 
 			$key = "googlemaps", 
 			$name = "Google Maps location",
-			$version = "1.3";
+			$version = "1.3.1";
 		
 		function __construct() {
 			parent::__construct();
