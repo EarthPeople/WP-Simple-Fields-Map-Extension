@@ -53,6 +53,12 @@ if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] ) {
 		simple_fields_register_post_type_default('sf_map_test', 'sf_map_test');
 
 	});
+
+	add_filter( "the_content", function($str) {
+		$str .= "<pre>" . print_r( simple_fields_values('sf_map'), true) . "</pre>";
+		return $str;
+	} );
+
 }
 //*
 
@@ -351,9 +357,13 @@ function simple_fields_field_googlemaps_register() {
 						$markers .= $val["lat"] . "," . $val["lng"];
 					}
 	
+					// zoom order works like this: 
+					// 1. $options["static_maps_zoom"], if set. got from arg to simple_fields_value or default val
+					// 2. $val['preferred_zoom'], if set. is set in gui. is empty if not set, but can be 0 (then it is set)
+
 					$static_map = add_query_arg(array(
 						"center" 	=> $val["lat"] . "," . $val["lng"],
-						"zoom" 		=> $options["static_maps_zoom"],
+						"zoom" 		=> isset( $val["preferred_zoom"] ) && is_numeric( $val["preferred_zoom"] ) ? $val["preferred_zoom"] : $options["static_maps_zoom"],
 						"size" 		=> $size_vals["width"] . "x" . $size_vals["height"],
 						"scale"		=> $options["static_maps_scale"],
 						"maptype"	=> $options["static_maps_maptype"],
