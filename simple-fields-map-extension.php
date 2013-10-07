@@ -3,7 +3,7 @@
 Plugin Name: Simple Fields Map extension
 Plugin URI: http://earthpeople.se/
 Description: Adds a Google Maps-field to Simple Fields
-Version: 1.3.2
+Version: 1.3.3
 Author: Earth People
 Author URI: http://earthpeople.se/
 License: GPL2
@@ -11,7 +11,7 @@ License: GPL2
 
 /* Add example post type and simple fields to test plugin. 
 // In case I forget to comment it out, it will only be called when using on my test domain (hopefully pretty unique name :)
-if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] ) {
+if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] || "playground-root.ep" === $_SERVER["HTTP_HOST"] ) {
 
 	// Full example to add post type with maps and stuff
 	add_action("init", function() {
@@ -66,7 +66,7 @@ if ( "playground-nightly.ep" === $_SERVER["HTTP_HOST"] ) {
 // Check if Simple Fields is installed and notify user if not
 function simple_fields_field_googlemaps_check_simple_fields_installed() {
 
-	$plugin_is_active = is_plugin_active("Simple-Fields-GIT/simple_fields.php") || is_plugin_active("Simple-Fields/simple_fields.php");
+	$plugin_is_active = is_plugin_active("simple-fields/simple_fields.php") || is_plugin_active("Simple-Fields-GIT/simple_fields.php") || is_plugin_active("Simple-Fields/simple_fields.php");
 	if ( ! $plugin_is_active ) {
 		?>
 		<div class="error">
@@ -92,7 +92,7 @@ function simple_fields_field_googlemaps_register() {
 		public 
 			$key = "googlemaps", 
 			$name = "Google Maps location",
-			$version = "1.3.2";
+			$version = "1.3.3";
 		
 		function __construct() {
 			parent::__construct();
@@ -341,7 +341,7 @@ function simple_fields_field_googlemaps_register() {
 			
 			// Generate the src for a static map for each map, for each image size
 			// https://developers.google.com/maps/documentation/staticmaps/
-			$static_map_base = "http://maps.googleapis.com/maps/api/staticmap?sensor=false";
+			$static_map_base = "https://maps.googleapis.com/maps/api/staticmap?sensor=false";
 			foreach ($values as $key => $val) {
 				
 				$arr_static_maps = array();

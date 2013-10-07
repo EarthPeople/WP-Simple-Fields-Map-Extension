@@ -34,7 +34,7 @@ var simple_fields_googlemap = (function($) {
 		load_map_script: function() {
 			var script = document.createElement("script");
 			script.type = "text/javascript";
-			script.src = "http://maps.google.com/maps/api/js?libraries=places&sensor=false&callback=simple_fields_googlemap.map_script_loaded";
+			script.src = "https://maps.google.com/maps/api/js?libraries=places&sensor=false&callback=simple_fields_googlemap.map_script_loaded";
 			document.body.appendChild(script);
 		},
 		

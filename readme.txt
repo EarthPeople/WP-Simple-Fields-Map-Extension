@@ -3,8 +3,8 @@ Contributors: eskapism, Earth People
 Donate link: http://earthpeople.se/
 Tags: simple fields, google maps, geolocation, latitude, longitude, lat, lng, location, extension, geocoding, maps
 Requires at least: 3.5.1
-Tested up to: 3.5.1
-Stable tag: 1.3.2
+Tested up to: 3.6.1
+Stable tag: 1.3.3
 License: GPLv2
 
 Extension to Simple Fields that adds a field type for selecting a location on a Google Map.
@@ -42,26 +42,32 @@ Slug for this field extension is "googlemaps".
 Full example using register field group:
 
 `
-		simple_fields_register_field_group('sf_map_test_field_fg',
+<?php
+
+// Add a field group with a Google Map-field
+simple_fields_register_field_group('sf_map_test_field_fg',
+	array(
+		'name' => 'My map',
+		'slug' => "mu_map"
+		'repeatable' => 1,
+		'fields' => array(
 			array(
-				'name' => 'My map',
-				'repeatable' => 1,
-				'fields' => array(
-					array(
-						"type" => "googlemaps",
-						"slug" => "sf_map",
-						"name" => "Test map",
-						"options" => array(
-							"defaultZoomLevel" => 10,
-							"defaultMapTypeId" => "HYBRID", // ROADMAP | SATELLITE | HYBRID | TERRAIN
-							"defaultLocationLat" => 40.71435,
-							"defaultLocationLng" => -74.00597,
-							"defaultZoomLevel" => 10
-						)
-					)
+				"type" => "googlemaps",
+				"slug" => "sf_map",
+				"name" => "Test map",
+				"options" => array(
+					"defaultZoomLevel" => 10,
+					"defaultMapTypeId" => "HYBRID", // ROADMAP | SATELLITE | HYBRID | TERRAIN
+					"defaultLocationLat" => 40.71435,
+					"defaultLocationLng" => -74.00597,
+					"defaultZoomLevel" => 10
 				)
 			)
-		);
+		)
+	)
+);
+
+?>
 `
 
 #### Translations/Languages
@@ -83,6 +89,9 @@ This plugin is available in the following languages:
 3. Example of the values that are being stored for each saved location/field (and the function used to get them)
 
 == Changelog ==
+
+= 1.3.3 =
+- Load scripts over HTTPS. Fixes http://wordpress.org/support/topic/javascript-blocked-map-not-showing.
 
 = 1.3.2 =
 - Fixed strict standards warning
